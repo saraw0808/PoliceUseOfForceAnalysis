@@ -1,0 +1,76 @@
+```{r}
+police_data <- A24_use_of_force
+```
+
+```{r}
+glimpse(police_data)
+```
+
+```{r}
+police_data |> 
+  count(Tactic)
+```
+
+```{r}
+
+police_data |> 
+  count(Tactic) |> 
+  filter(Tactic == "Unarmed skills")
+
+```
+
+```{r}
+police_data |>
+  filter(str_detect(Tactic, "Dog") == TRUE) |>
+  count(Tactic)
+
+```
+
+```{r}
+police_data |>
+  filter(str_detect(Tactic, "handcuffing") == TRUE) |>
+  count(Tactic)
+
+```
+
+```{r}
+police_data |> 
+  filter(str_detect(Tactic, "Irritant") == TRUE) |> 
+  count(Tactic) |> 
+  summarize(sum(n))
+
+```
+
+```{r}
+police_data |>
+  filter(str_detect(IncidentDate, "^10/") == TRUE | 
+         str_detect(IncidentDate, "^11/") == TRUE) |>
+  filter(str_detect(Tactic, "Taser") == TRUE) |> 
+  count(Tactic) |> 
+  summarize(sum(n))
+
+```
+
+```{r}
+police_data |> 
+  filter(str_detect(IncidentDate, "8/./2020") == TRUE | 
+         str_detect(IncidentDate, "8/../2020") == TRUE) |> 
+  filter(str_detect(Tactic, "Irritant") == TRUE) |> 
+  count(Tactic) |> 
+  summarize(sum(n))
+
+```
+
+```{r}
+police_data |> 
+  count(`Outcome: Fatality`)
+
+```
+
+```{r}
+police_data |>
+  filter(`Reason: Protect Self` == "Yes") |>
+  filter((`Location: Stadium` == "Yes") | (`Location: Hospital` == "Yes"))
+  
+```
+

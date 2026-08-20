@@ -1,0 +1,32 @@
+```{r}
+police_data <- A24_use_of_force
+```
+
+```{r}
+police_data |> count(SubjectGender, name="Freq") |>
+       arrange(desc(Freq))
+
+```
+
+```{r}
+police_data |> 
+  mutate(SubjectGender = fct_infreq(SubjectGender)) |>
+  ggplot(aes(x = SubjectGender)) +
+  geom_bar()
+```
+
+```{r}
+ggplot(police_data, aes(x = SubjectAge))   + geom_bar(aes(fill=SubjectGender))
+```
+
+```{r}
+police_data |>
+  filter(str_detect(IncidentDate, "^11")) |> 
+  mutate(Borough = fct_infreq(Borough)) |>
+  mutate(Borough = fct_rev(Borough)) |> 
+  group_by(Borough) |> 
+  filter(n() > 480) |> 
+  ggplot(aes(y = Borough)) + geom_bar()
+
+```
+
